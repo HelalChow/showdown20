@@ -47,6 +47,10 @@
 	<string>This app requires access to your location</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>This app requires access to your location</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>This app will detect speech</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>This app requires access to your microphone</string>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
 	<key>UILaunchStoryboardName</key>
