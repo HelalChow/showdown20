@@ -87,36 +87,40 @@ class MapViewController: UIViewController, SFSpeechRecognizerDelegate {
     
         func addAnnotations(){
             let timesSqaureAnnotation = MKPointAnnotation()
-            timesSqaureAnnotation.title = "9/11 Day of Service"
+            timesSqaureAnnotation.title = "Dr. Suraya Ahmed"
             timesSqaureAnnotation.coordinate = CLLocationCoordinate2D(latitude: 40.6602, longitude: -73.9985)
             
             let empireStateAnnotation = MKPointAnnotation()
-            empireStateAnnotation.title = "Hurricane Dorian Clothing Drive"
+            empireStateAnnotation.title = "Dr. Suraya Ahmed"
             empireStateAnnotation.coordinate = CLLocationCoordinate2D(latitude: 40.7484, longitude: -73.9857)
             
             let brooklynBridge = MKPointAnnotation()
-            brooklynBridge.title = "Food Pantry Delivery"
+            brooklynBridge.title = "Dr. Suraya Ahmed"
             brooklynBridge.coordinate = CLLocationCoordinate2D(latitude: 40.7061, longitude: -73.9969)
             
             let prospectPark = MKPointAnnotation()
-            prospectPark.title = "Feed The Homeless Soup Kitchen"
+            prospectPark.title = "Dr. Suraya Ahmed"
             prospectPark.coordinate = CLLocationCoordinate2D(latitude: 40.6602, longitude: -73.9690)
             
             let jersey = MKPointAnnotation()
-            jersey.title = "It's My Park"
+            jersey.title = "Dr. Suraya Ahmed"
             jersey.coordinate = CLLocationCoordinate2D(latitude: 40.7178, longitude: -74.0431)
             
             let col = MKPointAnnotation()
-            col.title = "Mental Health Discussion"
+            col.title = "Dr. Suraya Ahmed"
             col.coordinate = CLLocationCoordinate2D(latitude: 48.7806, longitude: 2.2376)
             
             let col2 = MKPointAnnotation()
-            col2.title = "Mental Health Discussion"
+            col2.title = "Dr. Suraya Ahmed"
             col2.coordinate = CLLocationCoordinate2D(latitude: 48.8606, longitude: 2.3476)
             
             let col3 = MKPointAnnotation()
-            col3.title = "Mental Health Discussion"
+            col3.title = "Dr. Suraya Ahmed"
             col3.coordinate = CLLocationCoordinate2D(latitude: 48.9030, longitude: 2.3599)
+            
+            let col4 = MKPointAnnotation()
+            col4.title = "Dr. Suraya Ahmed"
+            col4.coordinate = CLLocationCoordinate2D(latitude: 41.8902, longitude: 12.4922)
             
             mapView.addAnnotation(timesSqaureAnnotation)
             mapView.addAnnotation(empireStateAnnotation)
@@ -126,7 +130,7 @@ class MapViewController: UIViewController, SFSpeechRecognizerDelegate {
             
          
 
-            
+            mapView.addAnnotation(col4)
             mapView.addAnnotation(col3)
             mapView.addAnnotation(col2)
             mapView.addAnnotation(col)
@@ -238,7 +242,6 @@ class MapViewController: UIViewController, SFSpeechRecognizerDelegate {
         }
         
         func mapSetup() {
-            addAnnotations()
             self.mapView.mapType = .hybridFlyover
             self.mapView.showsBuildings = true
             self.mapView.isZoomEnabled = true
@@ -264,6 +267,43 @@ class MapViewController: UIViewController, SFSpeechRecognizerDelegate {
             "Las Vegas": FlyoverAwesomePlace.luxorResortLasVegas
             
         ]
+    
+        func showRoute() {
+            let sourceLocation = currentCoordinate ?? CLLocationCoordinate2D(latitude: 40.6742, longitude: -73.8418)
+            let destinationLocation = CLLocationCoordinate2D(latitude: 40.7484, longitude: -73.9857)
+
+            let sourcePlaceMark = MKPlacemark(coordinate: sourceLocation)
+            let destinationPlaceMark = MKPlacemark(coordinate: destinationLocation)
+
+            let directionRequest = MKDirections.Request()
+            directionRequest.source = MKMapItem(placemark: sourcePlaceMark)
+            directionRequest.destination = MKMapItem(placemark: destinationPlaceMark)
+            directionRequest.transportType = .automobile
+
+            let directions = MKDirections(request: directionRequest)
+            directions.calculate {(response, error) in
+                guard let directionResponse = response else {
+                    if let error = error{
+                        print("There was an error getting directions==\(error.localizedDescription)")
+                    }
+                    return
+                }
+                let route = directionResponse.routes[0]
+                self.mapView.addOverlay(route.polyline, level: .aboveRoads)
+
+                let rect = route.polyline.boundingMapRect
+                self.mapView.setRegion(MKCoordinateRegion(rect), animated: true)
+            }
+
+            self.mapView.delegate = self
+        }
+        
+        func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer{
+            let renderer = MKPolylineRenderer(overlay: overlay)
+            renderer.strokeColor = UIColor.blue
+            renderer.lineWidth = 4.0
+            return renderer
+        }
 
         
     }
@@ -285,7 +325,7 @@ extension MapViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         
-
+//        showRoute()
         let annView = view.annotation
         
         let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
@@ -301,23 +341,23 @@ extension MapViewController: MKMapViewDelegate {
 }
 
 extension MapViewController: CLLocationManagerDelegate {
-
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-
+        
         self.mapView.showsUserLocation = true
         guard let latestLocation = locations.first else { return }
-
+        
         let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
         let region = MKCoordinateRegion(center: latestLocation.coordinate, span: span)
         mapView.setRegion(region, animated: true)
-
+        
         if currentCoordinate == nil{
 //            zoomIn(latestLocation.coordinate)
             addAnnotations()
         }
-
+        
         currentCoordinate = latestLocation.coordinate
-
+        
     }
 }
 
