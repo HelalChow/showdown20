@@ -14,7 +14,7 @@ import FlyoverKit
 
 class MapViewController: UIViewController, MKMapViewDelegate, SFSpeechRecognizerDelegate {
     
-    var userInputLocation = FlyoverAwesomePlace.parisEiffelTower
+    var userInputLocation = FlyoverAwesomePlace.newYork
     let speechRecognizer: SFSpeechRecognizer? = SFSpeechRecognizer(locale: Locale.init(identifier: "en-us"))
     var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
     var recognitionTask: SFSpeechRecognitionTask?
@@ -95,7 +95,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, SFSpeechRecognizer
                         self.placeLabel.text = bestTranscription
                         self.userInputLocation = self.locationDictionary[bestTranscription!]!
                     } else{
-                        self.placeLabel.text = "Can't find the location you are searching"
+                        self.placeLabel.text = "No Location Found"
                         self.userInputLocation = FlyoverAwesomePlace.newYorkStatueOfLiberty
                     }
                     self.mapSetup()
@@ -119,14 +119,15 @@ class MapViewController: UIViewController, MKMapViewDelegate, SFSpeechRecognizer
         }
         
 
-      
+    
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var locationButton: UIButton!
     @IBOutlet weak var placeLabel: UILabel!
         
         
         
-   
+  
+    
     @IBAction func locationButtonClicked(_ sender: Any) {
             if audioEngine.isRunning {
                 audioEngine.stop()
@@ -157,23 +158,23 @@ class MapViewController: UIViewController, MKMapViewDelegate, SFSpeechRecognizer
             self.mapView.isZoomEnabled = true
             self.mapView.isScrollEnabled = true
             
-            let camera = FlyoverCamera(mapView: self.mapView, configuration: FlyoverCamera.Configuration(duration: 6.0, altitude: 1000, pitch: 45.0, headingStep: 20.0))
+            let camera = FlyoverCamera(mapView: self.mapView, configuration: FlyoverCamera.Configuration(duration: 4.0, altitude: 6000, pitch: 45.0, headingStep: 20.0))
             camera.start(flyover: self.userInputLocation)
-            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(6), execute: {
+            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(4), execute: {
                 camera.stop()
             })
         }
         
         let locationDictionary = [
             "Statue of Liberty": FlyoverAwesomePlace.newYorkStatueOfLiberty,
-            "Midtown New York": FlyoverAwesomePlace.centralParkNY,
-            "Golden Gate": FlyoverAwesomePlace.sanFranciscoGoldenGateBridge,
+            "Midtown": FlyoverAwesomePlace.centralParkNY,
+            "California": FlyoverAwesomePlace.sanFranciscoGoldenGateBridge,
             "Miami": FlyoverAwesomePlace.miamiBeach,
             "Rome": FlyoverAwesomePlace.romeColosseum,
             "Big Ben": FlyoverAwesomePlace.londonBigBen,
             "London": FlyoverAwesomePlace.londonEye,
             "Paris": FlyoverAwesomePlace.parisEiffelTower,
-            "Downtown New York": FlyoverAwesomePlace.newYork,
+            "New York": FlyoverAwesomePlace.newYork,
             "Las Vegas": FlyoverAwesomePlace.luxorResortLasVegas
             
         ]
