@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="4wa-ph-RLL">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
@@ -14,9 +14,20 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jHc-zK-jds">
+                                <rect key="frame" x="148" y="391" width="78" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Check Map"/>
+                                <connections>
+                                    <segue destination="4wa-ph-RLL" kind="showDetail" id="jTe-6H-m6E"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="aOs-B2-Ky5"/>
                     <navigationItem key="navigationItem" id="CjV-0B-oyV"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -80,22 +91,36 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bgz-y8-Z8y" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="972" y="949.50738916256159"/>
+            <point key="canvasLocation" x="12" y="941"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="2cG-hl-Ows">
             <objects>
                 <viewController storyboardIdentifier="MapViewController" id="4wa-ph-RLL" customClass="MapViewController" customModule="productDevelopment" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qJF-iq-loI">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="dV1-V9-3Fn">
-                                <rect key="frame" x="0.0" y="76" width="375" height="736"/>
+                                <rect key="frame" x="0.0" y="53" width="375" height="705"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </mapView>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WyG-SO-RRg">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="57"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="New York" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TrT-U8-KTz">
+                                        <rect key="frame" x="24" y="15" width="326" height="29"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="AmericanTypewriter" family="American Typewriter" pointSize="25"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.66666668653488159" green="0.54118947660196581" blue="0.64749066331697547" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            </view>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u71-St-fXo">
-                                <rect key="frame" x="239" y="737" width="120" height="32"/>
+                                <rect key="frame" x="239" y="673" width="120" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                 <state key="normal" title="Select Location">
@@ -105,34 +130,21 @@
                                     <action selector="locationButtonClicked:" destination="4wa-ph-RLL" eventType="touchUpInside" id="mpJ-Er-tLn"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WyG-SO-RRg">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="77"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="New York" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TrT-U8-KTz">
-                                        <rect key="frame" x="28" y="40" width="326" height="29"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" name="AmericanTypewriter" family="American Typewriter" pointSize="25"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" red="0.66666668653488159" green="0.54118947660196581" blue="0.64749066331697547" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="mXu-82-bMF"/>
                     </view>
+                    <navigationItem key="navigationItem" id="blc-cn-Zqr"/>
                     <connections>
                         <outlet property="locationButton" destination="u71-St-fXo" id="fbM-Sz-tu7"/>
                         <outlet property="mapView" destination="dV1-V9-3Fn" id="AIy-dF-OaR"/>
                         <outlet property="placeLabel" destination="TrT-U8-KTz" id="5k2-IH-EhR"/>
-                        <segue destination="rVc-Cn-jLU" kind="showDetail" id="dY9-06-2Gc"/>
+                        <segue destination="rVc-Cn-jLU" kind="showDetail" id="6iX-IT-ik7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9dy-Zl-1Am" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1957.5999999999999" y="949.50738916256159"/>
+            <point key="canvasLocation" x="1080.8" y="940.64039408866995"/>
         </scene>
         <!--Item-->
         <scene sceneID="jlj-97-ACx">
@@ -146,7 +158,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="BDy-Xn-qo0"/>
+                        <segue destination="4wa-ph-RLL" kind="relationship" relationship="rootViewController" id="vLe-mF-jFK"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UhE-kB-AUQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -165,6 +177,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="Oin-30-6xA" kind="relationship" relationship="viewControllers" id="C9L-eu-SKL"/>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="2g0-xN-ZAS"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NmS-R5-oto" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -176,4 +189,7 @@
         <image name="lady" width="1170" height="780"/>
         <image name="rating" width="1010" height="215"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="jTe-6H-m6E"/>
+    </inferredMetricsTieBreakers>
 </document>

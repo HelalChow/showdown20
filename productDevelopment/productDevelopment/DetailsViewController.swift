@@ -20,8 +20,6 @@ class DetailsViewController: UIViewController, MKMapViewDelegate {
     }
     
     
-
-   
     @IBAction func buttonClicked(_ sender: Any) {
         let eventStore:EKEventStore = EKEventStore()
         
